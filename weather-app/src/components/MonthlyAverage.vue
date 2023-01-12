@@ -1,198 +1,189 @@
 <template>
-  <div class="componentContainer">
-    <div class="InputMonth">
-      <h3>When would you like to travel?</h3>
-      <h3>Please select the month of travel:</h3>
-      <select v-model="selected" default="January">
-        <option v-for="option in options" :value="option.id" :key="option.id">
-          {{ option.text }}
-        </option>
-      </select>
+  <div class="container-md">
+    <div class="input-month">
+      <h3 class="question">When would you like to travel?</h3>
+      <h5 class="question">Please select the month of travel:</h5>
+      <div class="select-month">
+        <select v-model="selected" default="January">
+          <option v-for="option in options" :value="option.id" :key="option.id">
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
     </div>
-    <h3 class="question">{{ message1 }}</h3>
+
+    <div>
+      <h3 class="question">{{ message1 }}</h3>
+    </div>
 
     <div class="continents">
-      <label class="africa-checkbox">
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          class="africa-checkbox"
+          class="form-check-input"
+          id="inlineCheckbox1"
           value="Africa"
           v-model="checkedContinents"
         />
-        Africa
-      </label>
-      <label class="asia-checkbox">
+        <label class="form-check-label" for="inlineCheckbox1"> Africa </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          class="asia-checkbox"
+          class="form-check-input"
+          id="inlineCheckbox2"
           value="Asia"
           v-model="checkedContinents"
-        />
-        Asia
-      </label>
-      <label class="australia-checkbox">
+        /><label class="form-check-label" for="inlineCheckbox2"> Asia </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          class="australia-checkbox"
+          class="form-check-input"
+          id="inlineCheckbox3"
           value="Australia"
           v-model="checkedContinents"
-        />
-        Australia
-      </label>
-      <label class="europe-checkbox">
+        /><label class="form-check-label" for="inlineCheckbox3">
+          Australia
+        </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          id="europe-checkbox"
+          class="form-check-input"
+          id="inlineCheckbox4"
           value="Europe"
           v-model="checkedContinents"
-        />
-        Europe
-      </label>
-      <label class="north-america-checkbox">
+        /><label class="form-check-label" for="inlineCheckbox4"> Europe </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          class="north-america-checkbox"
+          class="form-check-input"
+          id="inlineCheckbox5"
           value="North America"
           v-model="checkedContinents"
-        />
-        North America
-      </label>
-      <label class="south-america-checkbox">
+        /><label class="form-check-label" for="inlineCheckbox5">
+          North America
+        </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          class="south-america-checkbox"
+          class="form-check-input"
+          id="inlineCheckbox6"
           value="South America"
           v-model="checkedContinents"
-        />
-        South America
-      </label>
+        /><label class="form-check-label" for="inlineCheckbox6">
+          South America
+        </label>
+      </div>
     </div>
 
-    <div class="temperature">
+    <div>
       <h3 class="question">{{ message2 }}</h3>
-      <form action="check">
+    </div>
+
+    <div class="temperatures">
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          id="veryHot"
-          value="veryHot"
+          class="form-check-input"
+          id="inlineCheckbox1"
+          value="very hot"
           v-model="checkedWeather"
         />
-        <label for="veryHot">I like it very hot</label>
-        <input type="checkbox" id="hot" value="hot" v-model="checkedWeather" />
-        <label for="hot">I like it hot</label>
+        <label class="form-check-label" for="inlineCheckbox1"> Very Hot </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          id="warm"
+          class="form-check-input"
+          id="inlineCheckbox2"
+          value="hot"
+          v-model="checkedWeather"
+        />
+        <label class="form-check-label" for="inlineCheckbox"> Hot </label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="inlineCheckbox3"
           value="warm"
           v-model="checkedWeather"
         />
-        <label for="warm">I like it warm</label>
+        <label class="form-check-label" for="inlineCheckbox3"> Warm </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          id="cooler"
+          class="form-check-input"
+          id="inlineCheckbox4"
           value="cooler"
           v-model="checkedWeather"
         />
-        <label for="cooler">I like it cooler</label>
+        <label class="form-check-label" for="inlineCheckbox4"> Cooler </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          id="cold"
+          class="form-check-input"
+          id="inlineCheckbox5"
           value="cold"
           v-model="checkedWeather"
         />
-        <label for="cold">I like it cold</label>
+        <label class="form-check-label" for="inlineCheckbox5"> Cold </label>
+      </div>
+
+      <div class="form-check form-check-inline">
         <input
           type="checkbox"
-          id="freezing"
+          class="form-check-input"
+          id="inlineCheckbox6"
           value="freezing"
           v-model="checkedWeather"
         />
-        <label for="freezing">I like it freezing</label>
-      </form>
-      <button type="button" class="btn btn-warning" @click="load()">
-        Submit
-      </button>
-      <h3 v-if="noCheck">
-        Please make sure you check at least one continent and one preferred
-        temperature.
-      </h3>
-      <ul>
-        <li
-          v-for="item in chosenWeatherData"
-          :value="item.name"
-          :key="item.name"
-        >
-          {{ item.name }} Temperature: {{ item.temp }} C°
-        </li>
-      </ul>
-
-      <h3 v-if="notFound">
-        Ups, this didn't work! Please try a different combination
-        of continent and temperature preference.
-      </h3>
-
-      <button @click="tryAgain()">Try again</button>
-
-      <!--
-      <div class="button">
-        <button @click="freezing()" class="btn">I like it freezing</button>
-        <ul>
-          <li v-for="item in freezingWeather" :value="item.name" :key="item.name">
-            {{ item.name }} Current Temperature: {{ item.temp }} C°
-          </li>
-        </ul>
+        <label class="form-check-label" for="inlineCheckbox6"> Freezing </label>
       </div>
-  
-      <div class="button">
-        <button @click="cold()" class="btn">I like it cold</button>
-        
-      </div>
-  
-      <div class="button">
-        <button @click="cooler()" class="btn">I like it a bit cooler</button>
-        <ul>
-          <li v-for="item in coolerWeather" :value="item.name" :key="item.name">
-            {{ item.name }} Temperature: {{ item.temp }}
-          </li>
-        </ul>
-      </div>
-  
-      <div class="button">
-        <button @click="warm()" class="btn">I like it warm</button>
-        <ul>
-          <li v-for="item in warmWeather" :value="item.name" :key="item.name">
-            {{ item.name }}
-            Temperature: {{ item.temp }}
-          </li>
-        </ul>
-      </div>
-        <div class="button">
-          <button @click="hot()" class="btn">I like it hot</button>
-          <ul>
-            <li v-for="item in hotWeather" :value="item.name" :key="item.name">
-              {{ item.name }} Current Temperature: {{ item.temp }} C°
-            </li>
-          </ul>
-        </div>
-        
-        <div class="button">
-         <button @click="veryhot()" class="btn">I like it very hot</button>
-          
-          
-          <h1 v-else> Here are your places:</h1>
-          
-          <ul>
-            <li
-              v-for="item in veryHotWeather"
-              :value="item.name"
-              :key="item.name"
-            >
-              {{ item.name }} Current Temperature: {{ item.temp }} C°
-            </li>
-          </ul>
-        </div>
-        -->
     </div>
+
+ <div class="submit">
+        <button type="button" class="btn btn-outline-primary" @click="load()">
+          Submit
+        </button>
+        <h3 v-if="noCheck">
+          Please make sure you check at least one continent and one preferred
+          temperature.
+        </h3>
+        <ul>
+          <li
+            v-for="item in chosenWeatherData"
+            :value="item.name"
+            :key="item.name"
+          >
+            {{ item.name }} Temperature: {{ item.temp }} C°
+          </li>
+        </ul>
+
+        <h1 v-if="notFound">
+          Sorry, no such weather to be found! Please try a different combination
+          of continent and temperature preference.
+        </h1>
+
+        <button type="button" class="btn btn-primary" @click="tryAgain()">
+          Try again
+        </button>
+      </div>
   </div>
 </template>
 
@@ -250,7 +241,7 @@ export default {
 
   methods: {
     getData() {
-      console.log('Inside getData')
+      console.log("Inside getData");
       const promises = [];
 
       this.chosenPlaces.forEach((e) => {
@@ -264,7 +255,7 @@ export default {
             .then(this.setResults)
         );
       });
-      console.log('all Weather data ')
+      console.log("all Weather data ");
       console.log(this.allWeatherData);
       Promise.all(promises)
         .then(this.loadWeather)
@@ -324,7 +315,7 @@ export default {
             //console.log()
             break;
           case "warm":
-            console.log('Inside switch warm');
+            console.log("Inside switch warm");
             this.warm();
             break;
           case "cooler":
@@ -341,7 +332,7 @@ export default {
     },
 
     converter(e) {
-      console.log('inside converter')
+      console.log("inside converter");
       return Math.round(e - 273.15);
     },
     //Functions to sort Cities by Temperature
@@ -351,7 +342,7 @@ export default {
       this.allWeatherData.forEach((e) => {
         let temp = this.converter(e.result.temp.average_max);
         if (temp < 10) {
-          this.saveData(e);
+          this.saveData(e, temp);
         }
       });
     },
@@ -360,28 +351,28 @@ export default {
       this.allWeatherData.forEach((e) => {
         let temp = this.converter(e.result.temp.average_max);
         if (temp >= 10 && temp < 15) {
-          this.saveData(e);
+          this.saveData(e, temp);
         }
       });
     },
     cooler() {
       console.log("inside cooler");
-      
+
       this.allWeatherData.forEach((e) => {
         let temp = this.converter(e.result.temp.average_max);
         if (temp >= 15 && temp < 20) {
-          this.saveData(e);
+          this.saveData(e, temp);
         }
       });
     },
     warm() {
       console.log("inside warm");
       this.allWeatherData.forEach((e) => {
-        console.log('inside warm for Each loop')
+        console.log("inside warm for Each loop");
         let temp = this.converter(e.result.temp.average_max);
-        console.log('Converted Temperature: ' + temp )
+        console.log("Converted Temperature: " + temp);
         if (temp >= 20 && temp < 30) {
-          console.log('Inside if')
+          console.log("Inside if");
           this.saveData(e, temp);
         }
       });
@@ -391,7 +382,7 @@ export default {
       this.allWeatherData.forEach((e) => {
         let temp = this.converter(e.result.temp.average_max);
         if (temp >= 30 && temp < 35) {
-          this.saveData(e);
+          this.saveData(e, temp);
         }
       });
     },
@@ -401,7 +392,7 @@ export default {
         let temp = this.converter(e.result.temp.average_max);
         if (temp >= 35) {
           console.log("I got into the if statement");
-          this.saveData(e);
+          this.saveData(e, temp);
         }
       }, console.log(this.notFound));
     },
@@ -409,8 +400,8 @@ export default {
     saveData(element, temp) {
       console.log("Inside saveData");
       let city_name = this.findCityName(element.city_id);
-      console.log('The city name: ' + city_name)
-      console.log('The temperature is ' + temp)
+      console.log("The city name: " + city_name);
+      console.log("The temperature is " + temp);
       const Entry = {
         name: city_name,
         temp: temp,
@@ -453,3 +444,36 @@ export default {
   },
 };
 </script>
+
+<style>
+.container-md {
+  border-style: dotted;
+}
+.continents {
+  color: black;
+  width: auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.temperatures {
+  color: black;
+  padding: 10px;
+  text-align: center;
+}
+
+.question {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  text-align: center;
+}
+.submit {
+  text-align: center;
+}
+.input-month {
+  padding: 5px;
+}
+.select-month {
+  text-align: center;
+}
+</style>

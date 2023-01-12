@@ -1,176 +1,195 @@
 <template>
-  <h2>Would you like to travel now?</h2>
-  <h3 class="question">{{ message1 }}</h3>
+  <div class="container-md">
+    <div>
+      <div>
+        <div>
+          <h2 class="question">Would you like to travel now?</h2>
+          <h3 class="question">{{ message1 }}</h3>
+        </div>
 
-  <div class="continents">
-    <label class="africa-checkbox">
-      <input
-        type="checkbox"
-        class="africa-checkbox"
-        value="Africa"
-        v-model="checkedContinents"
-      />
-      Africa
-    </label>
-    <label class="asia-checkbox">
-      <input
-        type="checkbox"
-        class="asia-checkbox"
-        value="Asia"
-        v-model="checkedContinents"
-      />
-      Asia
-    </label>
-    <label class="australia-checkbox">
-      <input
-        type="checkbox"
-        class="australia-checkbox"
-        value="Australia"
-        v-model="checkedContinents"
-      />
-      Australia
-    </label>
-    <label class="europe-checkbox">
-      <input
-        type="checkbox"
-        id="europe-checkbox"
-        value="Europe"
-        v-model="checkedContinents"
-      />
-      Europe
-    </label>
-    <label class="north-america-checkbox">
-      <input
-        type="checkbox"
-        class="north-america-checkbox"
-        value="North America"
-        v-model="checkedContinents"
-      />
-      North America
-    </label>
-    <label class="south-america-checkbox">
-      <input
-        type="checkbox"
-        class="south-america-checkbox"
-        value="South America"
-        v-model="checkedContinents"
-      />
-      South America
-    </label>
-  </div>
+        <div class="continents">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox1"
+              value="Africa"
+              v-model="checkedContinents"
+            />
+            <label class="form-check-label" for="inlineCheckbox1">
+              Africa
+            </label>
+          </div>
 
-  <div class="temperature">
-    <h3 class="question">{{ message2 }}</h3>
-    <form action="check">
-      <input
-        type="checkbox"
-        id="veryHot"
-        value="veryHot"
-        v-model="checkedWeather"
-      />
-      <label for="veryHot">I like it very hot</label>
-      <input type="checkbox" id="hot" value="hot" v-model="checkedWeather" />
-      <label for="hot">I like it hot</label>
-      <input type="checkbox" id="warm" value="warm" v-model="checkedWeather" />
-      <label for="warm">I like it warm</label>
-      <input
-        type="checkbox"
-        id="cooler"
-        value="cooler"
-        v-model="checkedWeather"
-      />
-      <label for="cooler">I like it cooler</label>
-      <input type="checkbox" id="cold" value="cold" v-model="checkedWeather" />
-      <label for="cold">I like it cold</label>
-      <input
-        type="checkbox"
-        id="freezing"
-        value="freezing"
-        v-model="checkedWeather"
-      />
-      <label for="freezing">I like it freezing</label>
-    </form>
-    <button type="button" class="btn btn-outline-primary" @click="load()">
-      Submit
-    </button>
-    <h3 v-if="noCheck">
-      Please make sure you check at least one continent and one preferred
-      temperature.
-    </h3>
-    <ul>
-      <li v-for="item in chosenWeatherData" :value="item.name" :key="item.name">
-        {{ item.name }} Temperature: {{ item.temp }} C°
-      </li>
-    </ul>
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox2"
+              value="Asia"
+              v-model="checkedContinents"
+            /><label class="form-check-label" for="inlineCheckbox2">
+              Asia
+            </label>
+          </div>
 
-    <h1 v-if="notFound">
-      Sorry, no such weather to be found! Please try a different combination of
-      continent and temperature preference.
-    </h1>
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox3"
+              value="Australia"
+              v-model="checkedContinents"
+            /><label class="form-check-label" for="inlineCheckbox3">
+              Australia
+            </label>
+          </div>
 
-    <button type="button" class="btn btn-primary" @click="tryAgain()">
-      Try again
-    </button>
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox4"
+              value="Europe"
+              v-model="checkedContinents"
+            /><label class="form-check-label" for="inlineCheckbox4">
+              Europe
+            </label>
+          </div>
 
-    <!--
-    <div class="button">
-      <button @click="freezing()" class="btn">I like it freezing</button>
-      <ul>
-        <li v-for="item in freezingWeather" :value="item.name" :key="item.name">
-          {{ item.name }} Current Temperature: {{ item.temp }} C°
-        </li>
-      </ul>
-    </div>
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox5"
+              value="North America"
+              v-model="checkedContinents"
+            /><label class="form-check-label" for="inlineCheckbox5">
+              North America
+            </label>
+          </div>
 
-    <div class="button">
-      <button @click="cold()" class="btn">I like it cold</button>
-      
-    </div>
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox6"
+              value="South America"
+              v-model="checkedContinents"
+            /><label class="form-check-label" for="inlineCheckbox6">
+              South America
+            </label>
+          </div>
+        </div>
 
-    <div class="button">
-      <button @click="cooler()" class="btn">I like it a bit cooler</button>
-      <ul>
-        <li v-for="item in coolerWeather" :value="item.name" :key="item.name">
-          {{ item.name }} Temperature: {{ item.temp }}
-        </li>
-      </ul>
-    </div>
+        <div>
+          <h3 class="question">{{ message2 }}</h3>
+        </div>
 
-    <div class="button">
-      <button @click="warm()" class="btn">I like it warm</button>
-      <ul>
-        <li v-for="item in warmWeather" :value="item.name" :key="item.name">
-          {{ item.name }}
-          Temperature: {{ item.temp }}
-        </li>
-      </ul>
-    </div>
-      <div class="button">
-        <button @click="hot()" class="btn">I like it hot</button>
-        <ul>
-          <li v-for="item in hotWeather" :value="item.name" :key="item.name">
-            {{ item.name }} Current Temperature: {{ item.temp }} C°
-          </li>
-        </ul>
+        <div class="temperatures">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox1"
+              value="very hot"
+              v-model="checkedWeather"
+            />
+            <label class="form-check-label" for="inlineCheckbox1">
+              Very Hot
+            </label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox2"
+              value="hot"
+              v-model="checkedWeather"
+            />
+            <label class="form-check-label" for="inlineCheckbox"> Hot </label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox3"
+              value="warm"
+              v-model="checkedWeather"
+            />
+            <label class="form-check-label" for="inlineCheckbox3"> Warm </label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox4"
+              value="cooler"
+              v-model="checkedWeather"
+            />
+            <label class="form-check-label" for="inlineCheckbox4">
+              Cooler
+            </label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox5"
+              value="cold"
+              v-model="checkedWeather"
+            />
+            <label class="form-check-label" for="inlineCheckbox5"> Cold </label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inlineCheckbox6"
+              value="freezing"
+              v-model="checkedWeather"
+            />
+            <label class="form-check-label" for="inlineCheckbox6">
+              Freezing
+            </label>
+          </div>
+        </div>
       </div>
-      
-      <div class="button">
-       <button @click="veryhot()" class="btn">I like it very hot</button>
-        
-        
-        <h1 v-else> Here are your places:</h1>
-        
+
+
+      <div class="submit">
+        <button type="button" class="btn btn-outline-primary" @click="load()">
+          Submit
+        </button>
+        <h3 v-if="noCheck">
+          Please make sure you check at least one continent and one preferred
+          temperature.
+        </h3>
         <ul>
           <li
-            v-for="item in veryHotWeather"
+            v-for="item in chosenWeatherData"
             :value="item.name"
             :key="item.name"
           >
-            {{ item.name }} Current Temperature: {{ item.temp }} C°
+            {{ item.name }} Temperature: {{ item.temp }} C°
           </li>
         </ul>
+
+        <h1 v-if="notFound">
+          Sorry, no such weather to be found! Please try a different combination
+          of continent and temperature preference.
+        </h1>
+
+        <button type="button" class="btn btn-primary" @click="tryAgain()">
+          Try again
+        </button>
       </div>
-      -->
+    </div>
   </div>
 </template>
 
@@ -197,12 +216,6 @@ export default {
       checkedContinents: [],
       checkedWeather: [],
       chosenPlaces: [],
-      //freezingWeather: [],
-      //coolerWeather: [],
-      //coldWeather: [],
-      //warmWeather: [],
-      //hotWeather: [],
-      //veryHotWeather: [],
       continent: String,
       africa: Africa,
       asia: Asia,
@@ -212,7 +225,7 @@ export default {
       southAmerica: SouthAmerica,
       cities: Cities,
       message1: "Where would you like to go?",
-      message2: "How do you like your weather?",
+      message2: "How do you like your Temperature?",
     };
   },
 
@@ -407,8 +420,7 @@ export default {
         this.checkedContinents.length === 0
       ) {
         this.noCheck = true;
-      }
-      if (this.chosenWeatherData.length === 0 && this.noCheck === false)
+      } else if (this.chosenWeatherData.length === 0 && this.noCheck === false)
         this.notFound = true;
     },
 
@@ -421,28 +433,35 @@ export default {
       this.allWeatherData = [];
       this.noCheck = false;
       this.notFound = false;
+      this.id = 1;
     },
   },
 };
 </script>
 
 <style>
-.componentContainer {
+.container-md {
   border-style: dotted;
 }
 .continents {
   color: black;
   width: auto;
   padding: 10px;
+  text-align: center;
 }
 
-.temperature {
+.temperatures {
   color: black;
   padding: 10px;
+  text-align: center;
 }
 
 .question {
   font-family: Arial, Helvetica, sans-serif;
   color: black;
+  text-align: center;
+}
+.submit {
+  text-align: center;
 }
 </style>

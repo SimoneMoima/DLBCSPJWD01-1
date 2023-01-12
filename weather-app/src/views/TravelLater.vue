@@ -1,11 +1,11 @@
 <script setup>
-import monthlyAverage from "../components/MonthlyAverage.vue"
+import monthlyAverage from "../components/MonthlyAverage.vue";
 </script>
 
 <template>
-    <main>
-    <monthlyAverage/>
-    </main>
+  <main>
+    <monthlyAverage />
+  </main>
 </template>
 
 <style>
