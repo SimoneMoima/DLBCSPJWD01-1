@@ -1,10 +1,10 @@
 <script setup>
-import AverageWeather from "../components/AverageWeather.vue"
+import monthlyAverage from "../components/MonthlyAverage.vue"
 </script>
 
 <template>
     <main>
-    <AverageWeather/>
+    <monthlyAverage/>
     </main>
 </template>
 

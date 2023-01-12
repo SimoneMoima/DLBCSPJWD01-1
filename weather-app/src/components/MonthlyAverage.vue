@@ -1,11 +1,9 @@
 <template>
-    
   <div class="componentContainer">
     <div class="InputMonth">
-      <h2>Would you like to travel later?</h2>
       <h3>When would you like to travel?</h3>
       <h3>Please select the month of travel:</h3>
-      <select v-model="selected">
+      <select v-model="selected" default="January">
         <option v-for="option in options" :value="option.id" :key="option.id">
           {{ option.text }}
         </option>
@@ -128,10 +126,10 @@
         </li>
       </ul>
 
-      <h1 v-if="notFound">
-        Sorry, no such weather to be found! Please try a different combination
+      <h3 v-if="notFound">
+        Ups, this didn't work! Please try a different combination
         of continent and temperature preference.
-      </h1>
+      </h3>
 
       <button @click="tryAgain()">Try again</button>
 
@@ -252,6 +250,7 @@ export default {
 
   methods: {
     getData() {
+      console.log('Inside getData')
       const promises = [];
 
       this.chosenPlaces.forEach((e) => {
@@ -265,7 +264,7 @@ export default {
             .then(this.setResults)
         );
       });
-
+      console.log('all Weather data ')
       console.log(this.allWeatherData);
       Promise.all(promises)
         .then(this.loadWeather)
@@ -307,8 +306,6 @@ export default {
           console.log("Inside South America");
           this.southAmerica.forEach((e) => this.chosenPlaces.push(e));
         }
-        // console.log('List of chosen continents: ')
-        //console.log(this.chosenContinents)
       });
     },
 
@@ -327,7 +324,7 @@ export default {
             //console.log()
             break;
           case "warm":
-            //console.log('Inside switch warm');
+            console.log('Inside switch warm');
             this.warm();
             break;
           case "cooler":
@@ -344,6 +341,7 @@ export default {
     },
 
     converter(e) {
+      console.log('inside converter')
       return Math.round(e - 273.15);
     },
     //Functions to sort Cities by Temperature
@@ -360,15 +358,18 @@ export default {
     cold() {
       console.log("Inside cold");
       this.allWeatherData.forEach((e) => {
-        if (e.temp >= 10 && e.temp < 15) {
+        let temp = this.converter(e.result.temp.average_max);
+        if (temp >= 10 && temp < 15) {
           this.saveData(e);
         }
       });
     },
     cooler() {
       console.log("inside cooler");
+      
       this.allWeatherData.forEach((e) => {
-        if (e.temp >= 15 && e.temp < 20) {
+        let temp = this.converter(e.result.temp.average_max);
+        if (temp >= 15 && temp < 20) {
           this.saveData(e);
         }
       });
@@ -376,9 +377,12 @@ export default {
     warm() {
       console.log("inside warm");
       this.allWeatherData.forEach((e) => {
+        console.log('inside warm for Each loop')
         let temp = this.converter(e.result.temp.average_max);
-        if (temp >= 20 && e.temp < 30) {
-          this.saveData(e);
+        console.log('Converted Temperature: ' + temp )
+        if (temp >= 20 && temp < 30) {
+          console.log('Inside if')
+          this.saveData(e, temp);
         }
       });
     },
@@ -386,7 +390,7 @@ export default {
       console.log("inside hot");
       this.allWeatherData.forEach((e) => {
         let temp = this.converter(e.result.temp.average_max);
-        if (temp >= 30 && e.temp < 35) {
+        if (temp >= 30 && temp < 35) {
           this.saveData(e);
         }
       });
@@ -394,7 +398,8 @@ export default {
     veryhot() {
       console.log("inside veryhot");
       this.allWeatherData.forEach((e) => {
-        if (e.temp >= 35) {
+        let temp = this.converter(e.result.temp.average_max);
+        if (temp >= 35) {
           console.log("I got into the if statement");
           this.saveData(e);
         }
@@ -404,11 +409,13 @@ export default {
     saveData(element, temp) {
       console.log("Inside saveData");
       let city_name = this.findCityName(element.city_id);
+      console.log('The city name: ' + city_name)
+      console.log('The temperature is ' + temp)
       const Entry = {
         name: city_name,
         temp: temp,
       };
-      this.ChoosenData.push(Entry);
+      this.chosenWeatherData.push(Entry);
     },
     findCityName(e) {
       let name;
