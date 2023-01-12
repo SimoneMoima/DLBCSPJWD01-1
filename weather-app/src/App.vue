@@ -1,36 +1,43 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+import { RouterLink, RouterView } from 'vue-router'
+
+
 </script>
 
 <template>
   <header>
-    <div>
-    <h1>Bootstrap</h1>
-    </div>
-    <button type="button" class="btn btn-primary">Primary</button>
+    
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+    <h1>WHERE TO GO</h1>
+    <h4>Choose your next holiday destination</h4> 
+    </div>
+    
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/TravelNow">Travel now</RouterLink>
+        <RouterLink to="/TravelLater">Travel later</RouterLink>
       </nav>
-    </div>
+    
   </header>
 
   <RouterView />
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
   max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+  font-family: fantasy;
+  padding: 45px;
+  text-align: center;
+  
+  color: white;
+  font-size: 30px;
+ 
+  transition: 0.4s;
+  display: flex;
+  place-items: center;
 }
 
 nav {
@@ -65,9 +72,6 @@ nav a:first-of-type {
     padding-right: calc(var(--section-gap) / 2);
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
 
   header .wrapper {
     display: flex;
