@@ -1,23 +1,126 @@
 
 
+@font-face{
+  font-family: "Ubuntu-Title" ;
+  src:url(./fonts/Ubuntu-Title.ttf)
+}
+@font-face {
+  font-family: "Ubuntu";
+  src: url(./fonts/Ubuntu-Regular.ttf);
+}
+
+
 #app {
+ background-color:white;
+ margin: 0 auto;
+ padding-left: 2rem;
+ padding-right: 2rem;
+ padding-bottom: 1rem;
+ font-weight: normal;
+ min-height: max-content;
+ font-family: "Ubuntu";
+}
+
+.btn{
+  font-family: "Ubuntu-title";
+}
+
+.input-field{
+  background-color: lightgrey;
+  margin: 5px;
+  border:solid whitesmoke;
+  box-shadow: 5px 5px lightgrey;
+  height: 100%;
+  margin: 2px;
+  padding: 10px;
+  text-align: center;
+}
+
+.intro-header{
+  font-size:xx-large;
+  text-align: left;
+  color: white;
+  text-shadow: 2px 2px black;
+  padding: 5px;
+  font-family: "Ubuntu-title";
+}
+
+.response{
+  text-align: center;
+  padding: 10px;
+  background-color: whitesmoke;
+  border:  solid whitesmoke;
+  box-shadow: 5px 5px lightgrey;
+  /*box-shadow: 2px 2px 5px 5px lightgray;*/
+  margin: 10px;
+  max-height: 20rem;
+  min-height: 20rem;
+}
+
+.question {
+  padding-left: 5px;
+  color: black;
+  text-align: left;
+  background-color: whitesmoke;
+  box-shadow: 2px 2px darkgrey;
+}  
+
+header {
+  width: 100%;
+  border-bottom: solid;
+  border-color: grey;
+  margin-bottom: 15px;
+  margin-top: 0;
+  font-family: "Ubuntu-title";
+  font-size: large;
+}
+
+footer {
+  border-top: solid;
+  border-color: grey;
+  padding: 10px;
+  margin-top: 15px;
  
 }
 
-
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(53, 100%, 37%, 0.2);
-  }
+.temperatures {
+  color: black;
+  padding: 10px;
+  text-align: center;
+}
+.continents {
+  color: black;
+  width: auto;
+  padding: 10px;
+  text-align: center;
+}
+.main-display{
+  text-align: center;
+  /*border: 1px solid red;*/
+}
+.spinner {
+  padding: 5px;
+  
+}
+.col-checkbox{
+  text-align: left;
+  margin-bottom: 5px;
+  /*border: solid red;*/
 }
 
-@media (min-width: 1024px) {
-  body {
-   
+@media (min-width: 768px) {
+
+  .response{
+    max-height: 33rem;
+    min-height: 33rem;
   }
 
-  #app {
-   
-  }
+ #app{
+  font-size: large;
+ }
+
+ header{
+  font-size: x-large;
+ }
 }
+
