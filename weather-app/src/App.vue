@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import ConstantView from "./components/ConstantView.vue"
+
+
 </script>
 
 <template>
@@ -41,27 +42,12 @@ import ConstantView from "./components/ConstantView.vue"
       </div>
     </nav>
   </header>
-  
-  <div class="container-fluid d-grid">
-    <div class="row">
-      <div class="col-md-3 constant-view">
-      <ConstantView />
-      </div>
-      <div class="col-md-8 p-2 col-sm-12 routers">
         <RouterView />
-      </div>
-    </div>
-  </div>
   <footer></footer>
 </template>
 
 <style scoped>
-.row{
 
-}
-.constant-view{
-  
-}
 a:hover {
   color: darkcyan;
 }
@@ -73,8 +59,6 @@ a {
   text-decoration: none;
   color: black;
 }
-
-
 
 @media (min-width: 1024px) {
   .navbar-brand {

@@ -1,6 +1,8 @@
 <template>
   <div class="row main-display">
-    <div class="col-md-6 col-sm-12 mb-3 question-field">
+  <div class="col sidebar">
+  <Sidebar/></div>
+    <div class="col-md-5 col-sm-12 mb-3 question-field">
       <div class="input-field">
         <h5 class="question mb-4 mt-3">{{ question1 }}</h5>
 
@@ -206,7 +208,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 response-field">
+    <div class="col-md-4 response-field">
       <div class="response overflow-auto">
         <div v-if="chosenWeatherData == 0">
           <div v-if="!noCheck && !notFound">
@@ -291,12 +293,8 @@
         </div>
       </div>
       <div class="button">
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          @click="tryAgain()"
-        >
-          Try again
+        <button type="button" class="btn btn-outline-primary" @click="clear()">
+          Clear
         </button>
       </div>
     </div>
@@ -311,9 +309,8 @@ import Australia from "./australianPlaces.json";
 import NorthAmerica from "./northAmerica.json";
 import SouthAmerica from "./southAmerica.json";
 import Cities from "./cities.json";
-
+import Sidebar from "./SidebarComponent.vue"
 export default {
- 
   data() {
     return {
       url: "http://pro.openweathermap.org/data/2.5/",
@@ -340,7 +337,9 @@ export default {
       cta2: "How do you like your Temperature?",
     };
   },
-
+  components: {
+    Sidebar,
+  },
   methods: {
     getData() {
       const promises = [];
@@ -368,7 +367,7 @@ export default {
 
     load() {
       this.loading = true;
-       if (this.chosenWeatherData !== 0) {
+      if (this.chosenWeatherData !== 0) {
         this.chosenWeatherData = [];
         this.allWeatherData = [];
         this.chosenPlaces = [];
@@ -390,26 +389,18 @@ export default {
     },*/
 
     getPlaces() {
-      console.log("Inside getPlaces");
-
       this.checkedContinents.forEach((e) => {
         if (e === "Africa") {
-          console.log("Inside Africa");
           this.africa.forEach((e) => this.chosenPlaces.push(e));
         } else if (e === "Asia") {
-          console.log("Inside Asia");
           this.asia.forEach((e) => this.chosenPlaces.push(e));
         } else if (e === "Australia") {
-          console.log("Inside Australia");
           this.australia.forEach((e) => this.chosenPlaces.push(e));
         } else if (e === "Europe") {
-          console.log("Inside Europe");
           this.europe.forEach((e) => this.chosenPlaces.push(e));
         } else if (e === "North America") {
-          console.log("Inside North America");
           this.northAmerica.forEach((e) => this.chosenPlaces.push(e));
         } else if (e === "South America") {
-          console.log("Inside South America");
           this.southAmerica.forEach((e) => this.chosenPlaces.push(e));
         }
       });
@@ -425,8 +416,6 @@ export default {
     },*/
 
     loadWeather() {
-      console.log("Inside loadWeather");
-     
       this.checkedWeather.forEach((e) => {
         switch (e) {
           case "very hot":
@@ -492,11 +481,10 @@ export default {
         if (e.main.temp >= 33) {
           this.saveData(e);
         }
-      })S
+      });
     },
 
     saveData(e) {
-
       this.findCityName(e.id);
       const Entry = {
         name: this.city_name.name,
@@ -504,7 +492,7 @@ export default {
         continent: this.city_name.continent,
       };
 
-  //This code snipet was taken from https://stackoverflow.com/questions/1988349/array-push-if-does-not-exist
+      //This code snipet was taken from https://stackoverflow.com/questions/1988349/array-push-if-does-not-exist
 
       var index = this.chosenWeatherData.findIndex(
         (e) => e.name === Entry.name
@@ -514,14 +502,13 @@ export default {
         ? this.chosenWeatherData.push(Entry)
         : console.log("object already exists");
 
-   //End of code snipet
+      //End of code snipet
     },
 
     findCityName(e) {
+      console.log(this.allWeatherData)
       this.cities.forEach((element) => {
         if (element.id === e) {
-          console.log(element.name);
-          console.log(element.continent);
           this.city_name.name = element.name;
           this.city_name.continent = element.continent;
         }
@@ -529,6 +516,7 @@ export default {
     },
 
     checkData() {
+      this.sort();
       if (
         this.checkedWeather.length === 0 ||
         this.checkedContinents.length === 0
@@ -546,7 +534,7 @@ export default {
       }
     },
 
-    tryAgain() {
+    clear() {
       this.checkedContinents = [];
       this.checkedWeather = [];
       this.chosenPlaces = [];
@@ -556,6 +544,10 @@ export default {
       this.notFound = false;
       this.id = 1;
       this.loading = false;
+    },
+
+    sort() {
+      this.chosenWeatherData.sort((a, b) => b.temp - a.temp);
     },
   },
 };

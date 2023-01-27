@@ -1,6 +1,8 @@
 <template>
   <div class="row main-display">
-    <div class="col-md-6 col-sm-12  mb-3 question-field">
+    <div class="col sidebar"><Sidebar /></div>
+
+    <div class="col-md-5 col-sm-12 mb-3 question-field">
       <div class="input-field">
         <h5 class="question mb-4 mt-3">{{ question1 }}</h5>
 
@@ -210,7 +212,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 response-field">
+    <div class="col-md-4 response-field">
       <div class="response overflow-auto">
         <div v-if="chosenWeatherData == 0">
           <div v-if="!noCheck && !notFound && !noMonth">
@@ -339,6 +341,7 @@ import Australia from "./australianPlaces.json";
 import NorthAmerica from "./northAmerica.json";
 import SouthAmerica from "./southAmerica.json";
 import Cities from "./cities.json";
+import Sidebar from "./SidebarComponent.vue";
 
 export default {
   data() {
@@ -364,7 +367,7 @@ export default {
         { text: "September", id: 9 },
         { text: "October", id: 10 },
         { text: "November", id: 11 },
-        { text: "Dezember", id: 12 },
+        { text: "December", id: 12 },
       ],
       continent: String,
       selected: "",
@@ -385,7 +388,9 @@ export default {
       cta3: "Choose your temperature prefferences:",
     };
   },
-
+  components: {
+    Sidebar,
+  },
   methods: {
     printMonth() {
       this.options.forEach((e) => {
@@ -410,10 +415,10 @@ export default {
         );
       });
 
+      console.log(this.allWeatherData);
       Promise.all(promises)
         .then(this.loadWeather)
         .then(this.checkData)
-        .then(this.sort)
         .catch((err) => console.log(err));
     },
 
@@ -493,67 +498,52 @@ export default {
 
     //Functions to sort Cities by Temperature
     freezing() {
-      // console.log("inside freezing");
-
       this.allWeatherData.forEach((e) => {
-        let temp = this.converter(e.result.temp.average_max);
+        let temp = this.converter(e.result.temp.median);
         if (temp <= 0) {
           this.saveData(e, temp);
         }
       });
     },
     cold() {
-      // console.log("Inside cold");
       this.allWeatherData.forEach((e) => {
-        let temp = this.converter(e.result.temp.average_max);
+        let temp = this.converter(e.result.temp.median);
         if (temp > 0 && temp <= 10) {
           this.saveData(e, temp);
         }
       });
     },
     cooler() {
-      //console.log("inside cooler");
-
       this.allWeatherData.forEach((e) => {
-        let temp = this.converter(e.result.temp.average_max);
+        let temp = this.converter(e.result.temp.median);
         if (temp > 10 && temp <= 18) {
           this.saveData(e, temp);
         }
       });
     },
     warm() {
-      // console.log("inside warm");
       this.allWeatherData.forEach((e) => {
-        // console.log("inside warm for Each loop");
-        let temp = this.converter(e.result.temp.average_max);
-        // console.log("Converted Temperature: " + temp);
+        let temp = this.converter(e.result.temp.median);
         if (temp > 18 && temp <= 25) {
-          //console.log("Inside if");
           this.saveData(e, temp);
         }
       });
     },
     hot() {
-      // console.log("inside hot");
       this.allWeatherData.forEach((e) => {
-        let temp = this.converter(e.result.temp.average_max);
+        let temp = this.converter(e.result.temp.median);
         if (temp > 25 && temp <= 33) {
           this.saveData(e, temp);
         }
       });
     },
     veryhot() {
-      // console.log("inside veryhot");
-      this.allWeatherData.forEach(
-        (e) => {
-          let temp = this.converter(e.result.temp.average_max);
-          if (temp > 33) {
-            //console.log("I got into the if statement");
-            this.saveData(e, temp);
-          }
+      this.allWeatherData.forEach((e) => {
+        let temp = this.converter(e.result.temp.median);
+        if (temp > 33) {
+          this.saveData(e, temp);
         }
-        //console.log(this.notFound)
-      );
+      });
     },
 
     saveData(e, temp) {
@@ -590,6 +580,8 @@ export default {
     },
 
     checkData() {
+      console.log(this.chosenWeatherData);
+      this.sort();
       if (
         this.checkedWeather.length === 0 ||
         this.checkedContinents.length === 0
@@ -616,11 +608,10 @@ export default {
       this.loading = false;
       this.noMonth = false;
     },
-  },
-  sort() {
-    this.chosenWeatherData.slice().sort((a, b) => {
-      a.temp > b.temp ? 1 : -1;
-    });
+
+    sort() {
+      this.chosenWeatherData.sort((a, b) => b.temp - a.temp);
+    },
   },
 };
 </script>
