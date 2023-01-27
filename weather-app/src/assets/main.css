@@ -31,7 +31,6 @@
   border:solid whitesmoke;
   box-shadow: 5px 5px lightgrey;
   height: 100%;
-  margin: 2px;
   padding: 10px;
   text-align: center;
 }
@@ -96,6 +95,8 @@ footer {
 }
 .main-display{
   text-align: center;
+  height: 100%;
+  width: 100%;
   /*border: 1px solid red;*/
 }
 .spinner {

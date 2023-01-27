@@ -16,13 +16,13 @@
 
     
     
-    <div class="important-note">
-      <p>
+    <div >
+      <p class="important-note">
         <small
-          ><strong>Important: </strong> Please be aware that if you use
+          ><strong>Important: </strong> <br> Please be aware that if you use
           <strong><RouterLink to="/TravelNow">Travel now</RouterLink></strong> ,
           the results will be based on the current temperature. This can affect
-          the result based on the time of the day. At night temperatures usually
+          the result based on the time of the day. In the evenings, temperatures usually
           fall and you will get a different result then during the day.</small
         >
       </p></div>
@@ -52,7 +52,7 @@ p {
 }
 
 .important-note {
-  text-align: center;
+  text-align:left;
   margin-top: 80px;
   margin-bottom: 0px;
 

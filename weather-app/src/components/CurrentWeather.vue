@@ -242,7 +242,7 @@
               </div>
             </div>
           </div>
-          
+
           <div v-if="notFound">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -300,52 +300,6 @@
         </button>
       </div>
     </div>
-
-    <!-- <div class="col response-field">
-      <div clas="background-box">
-        <div v-if="chosenWeatherData == 0" class="no-answer">
-          <h4 v-if="!noCheck & !notFound">Result will display here...</h4>
-          <h3 v-if="noCheck">
-            Please make sure you check at least one continent and one preferred
-            temperature.
-          </h3>
-          <h1 v-if="notFound">
-            Sorry, no such weather found! Please try a different combination of
-            continent and temperature preference.
-          </h1>
-        </div>
-
-        <div v-if="chosenWeatherData != 0" class="answer overflow-auto">
-          <h3 class="mb-5">This is what we found:</h3>
-
-          <dl
-            class="row"
-            v-for="item in chosenWeatherData"
-            :value="item.name"
-            :key="item.name"
-          >
-            <dt class="col-xs-6">
-              <strong>{{ item.name }}</strong>
-              <small> ({{ item.continent }})</small>
-            </dt>
-
-            <dd class="col-xs-6">
-              <strong>{{ item.temp }} C°</strong>
-            </dd>
-          </dl>
-        </div>
-      </div>
-
-      <div class="button">
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          @click="tryAgain()"
-        >
-          Try again
-        </button>
-      </div>
-    </div>-->
   </div>
 </template>
 
@@ -359,8 +313,7 @@ import SouthAmerica from "./southAmerica.json";
 import Cities from "./cities.json";
 
 export default {
-  name: "WeatherInfo",
-
+ 
   data() {
     return {
       url: "http://pro.openweathermap.org/data/2.5/",
@@ -402,7 +355,6 @@ export default {
         );
       });
 
-      //console.log(this.allWeatherData);
       Promise.all(promises)
         .then(this.loadWeather)
         .then(this.checkData)
@@ -415,9 +367,17 @@ export default {
     },
 
     load() {
-      console.log("Inside load");
-      this.getPlaces();
-      this.getData();
+      this.loading = true;
+       if (this.chosenWeatherData !== 0) {
+        this.chosenWeatherData = [];
+        this.allWeatherData = [];
+        this.chosenPlaces = [];
+        this.getPlaces();
+        this.getData();
+      } else {
+        this.getPlaces();
+        this.getData();
+      }
     },
     /*      this.Cities.forEach((e) => {
         fetch(`${this.url}weather?q=${e}&units=metric&appid=${this.apikey}`)
@@ -452,10 +412,9 @@ export default {
           console.log("Inside South America");
           this.southAmerica.forEach((e) => this.chosenPlaces.push(e));
         }
-        // console.log('List of chosen continents: ')
-        //console.log(this.chosenContinents)
       });
     },
+
     /*loadContinents(){
       console.log('Inside loadContinent')
       this.checkedContinents.forEach((e) => {
@@ -467,20 +426,16 @@ export default {
 
     loadWeather() {
       console.log("Inside loadWeather");
-      // console.log(this.checkedWeather)
+     
       this.checkedWeather.forEach((e) => {
         switch (e) {
           case "very hot":
-            //console.log('Inside switch very hot')
             this.veryhot();
             break;
           case "hot":
-            //console.log('Inside switch hot')
             this.hot();
-            //console.log()
             break;
           case "warm":
-            //console.log('Inside switch warm');
             this.warm();
             break;
           case "cooler":
@@ -498,7 +453,6 @@ export default {
 
     //Functions to sort Cities by Temperature
     freezing() {
-      console.log("inside freezing");
       this.allWeatherData.forEach((e) => {
         if (e.main.temp < 10) {
           this.saveData(e);
@@ -506,7 +460,6 @@ export default {
       });
     },
     cold() {
-      console.log("Inside cold");
       this.allWeatherData.forEach((e) => {
         if (e.main.temp >= 10 && e.main.temp < 15) {
           this.saveData(e);
@@ -514,7 +467,6 @@ export default {
       });
     },
     cooler() {
-      console.log("inside cooler");
       this.allWeatherData.forEach((e) => {
         if (e.main.temp >= 15 && e.main.temp < 20) {
           this.saveData(e);
@@ -522,7 +474,6 @@ export default {
       });
     },
     warm() {
-      console.log("inside warm");
       this.allWeatherData.forEach((e) => {
         if (e.main.temp >= 20 && e.main.temp < 30) {
           this.saveData(e);
@@ -530,7 +481,6 @@ export default {
       });
     },
     hot() {
-      console.log("inside hot");
       this.allWeatherData.forEach((e) => {
         if (e.main.temp >= 29 && e.main.temp < 33) {
           this.saveData(e);
@@ -538,17 +488,14 @@ export default {
       });
     },
     veryhot() {
-      console.log("inside veryhot");
       this.allWeatherData.forEach((e) => {
         if (e.main.temp >= 33) {
-          console.log("I got into the if statement");
           this.saveData(e);
         }
-      }, console.log(this.notFound));
+      })S
     },
 
     saveData(e) {
-      console.log("Inside saveData");
 
       this.findCityName(e.id);
       const Entry = {
@@ -556,9 +503,10 @@ export default {
         temp: Math.round(e.main.temp),
         continent: this.city_name.continent,
       };
- //This code snipet was taken from https://stackoverflow.com/questions/1988349/array-push-if-does-not-exist
 
- var index = this.chosenWeatherData.findIndex(
+  //This code snipet was taken from https://stackoverflow.com/questions/1988349/array-push-if-does-not-exist
+
+      var index = this.chosenWeatherData.findIndex(
         (e) => e.name === Entry.name
       );
 
@@ -566,17 +514,11 @@ export default {
         ? this.chosenWeatherData.push(Entry)
         : console.log("object already exists");
 
-      //End of code snipet
-
-    
-
-      console.log("This is the chosen Weather data after pushing:");
-      console.log(this.chosenWeatherData);
+   //End of code snipet
     },
 
     findCityName(e) {
       this.cities.forEach((element) => {
-        //console.log(element.id);
         if (element.id === e) {
           console.log(element.name);
           console.log(element.continent);
@@ -587,7 +529,6 @@ export default {
     },
 
     checkData() {
-      console.log("Inside checkData");
       if (
         this.checkedWeather.length === 0 ||
         this.checkedContinents.length === 0
@@ -606,7 +547,6 @@ export default {
     },
 
     tryAgain() {
-      console.log("Inside tryAgain");
       this.checkedContinents = [];
       this.checkedWeather = [];
       this.chosenPlaces = [];

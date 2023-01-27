@@ -1,6 +1,6 @@
 <template>
   <div class="row main-display">
-    <div class="col-md-6 col-sm-12 mb-3 question-field">
+    <div class="col-md-6 col-sm-12  mb-3 question-field">
       <div class="input-field">
         <h5 class="question mb-4 mt-3">{{ question1 }}</h5>
 
@@ -268,6 +268,7 @@
               </div>
             </div>
           </div>
+
           <div v-if="notFound && !noMonth">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -322,12 +323,8 @@
       </div>
 
       <div class="button">
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          @click="tryAgain()"
-        >
-          Try again
+        <button type="button" class="btn btn-outline-primary" @click="clear()">
+          Clear
         </button>
       </div>
     </div>
@@ -344,7 +341,6 @@ import SouthAmerica from "./southAmerica.json";
 import Cities from "./cities.json";
 
 export default {
-  name: "WeatherInfo",
   data() {
     return {
       url: "https://history.openweathermap.org/data/2.5/aggregated/",
@@ -417,6 +413,7 @@ export default {
       Promise.all(promises)
         .then(this.loadWeather)
         .then(this.checkData)
+        .then(this.sort)
         .catch((err) => console.log(err));
     },
 
@@ -429,6 +426,12 @@ export default {
       if (this.selected === "") {
         this.noMonth = true;
         this.loading = false;
+      } else if (this.chosenWeatherData !== 0) {
+        this.chosenWeatherData = [];
+        this.allWeatherData = [];
+        this.chosenPlaces = [];
+        this.getPlaces();
+        this.getData();
       } else {
         this.getPlaces();
         this.getData();
@@ -600,7 +603,7 @@ export default {
       }
     },
 
-    tryAgain() {
+    clear() {
       this.checkedContinents = [];
       this.checkedWeather = [];
       this.chosenPlaces = [];
@@ -609,9 +612,15 @@ export default {
       this.noCheck = false;
       this.notFound = false;
       this.month = "";
+      this.selected = "";
       this.loading = false;
       this.noMonth = false;
     },
+  },
+  sort() {
+    this.chosenWeatherData.slice().sort((a, b) => {
+      a.temp > b.temp ? 1 : -1;
+    });
   },
 };
 </script>
