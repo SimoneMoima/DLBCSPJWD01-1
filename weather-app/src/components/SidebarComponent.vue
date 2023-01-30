@@ -21,8 +21,6 @@
       </div>
     </div>
 
-
-
     <div class="d-grid col-md-12 mt-5">
       <button
         class="btn btn-warning opacity-75"
@@ -65,25 +63,8 @@
   </div>
 </template>
 
-<script>
-
-export default {
-
-  data(){
-    return {};
-
-  },
-
-  methods: { 
-
-
-  }
- 
-};
-</script>
-
 <style>
-p{
+p {
   padding: 5px;
   text-align: left;
 }

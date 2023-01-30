@@ -1,3 +1,5 @@
+<!-- eslint-disable prettier/prettier -->
+
 <template>
   <div class="row main-display">
     <div class="col sidebar"><Sidebar /></div>
@@ -334,6 +336,7 @@
 </template>
 
 <script>
+//import of Json Files with data
 import Africa from "./africanPlaces.json";
 import Europe from "./europeanPlaces.json";
 import Asia from "./asianPlaces.json";
@@ -341,6 +344,7 @@ import Australia from "./australianPlaces.json";
 import NorthAmerica from "./northAmerica.json";
 import SouthAmerica from "./southAmerica.json";
 import Cities from "./cities.json";
+//import Sidebar component
 import Sidebar from "./SidebarComponent.vue";
 
 export default {
@@ -392,6 +396,7 @@ export default {
     Sidebar,
   },
   methods: {
+    //Function that prints the month that was chosen in select menu
     printMonth() {
       this.options.forEach((e) => {
         if (e.id === this.selected) {
@@ -400,7 +405,7 @@ export default {
         this.loading = false;
       });
     },
-
+    //Function that makes API calls to openWeatherMap API
     getData() {
       const promises = [];
       this.chosenPlaces.forEach((e) => {
@@ -421,11 +426,14 @@ export default {
         .then(this.checkData)
         .catch((err) => console.log(err));
     },
-
+    //Function that saves the results of the API calls in the allWeatherData array
     setResults(res) {
       this.allWeatherData.push(res);
     },
-
+    /*Function that iniates the scanner, 
+    checks if the weather data is loaded,
+    calls the functions getPlaces and get Data
+    */
     load() {
       this.loading = true;
       if (this.selected === "") {
@@ -442,7 +450,7 @@ export default {
         this.getData();
       }
     },
-
+    //Function that saves the results of the checked boxes into the chosenPlaces array
     getPlaces() {
       this.checkedContinents.forEach((e) => {
         if (e === "Africa") {
@@ -460,7 +468,7 @@ export default {
         }
       });
     },
-
+    //Function that calls the functions of the checked weather intervalls through a switch statement
     loadWeather() {
       // console.log("Inside loadWeather");
       // console.log(this.checkedWeather)
@@ -491,12 +499,11 @@ export default {
         }
       });
     },
-
+    //converts the temperature from Kelvin to Celsius
     converter(e) {
       return Math.round(e - 273.15);
     },
-
-    //Functions to sort Cities by Temperature
+    /*Functions that iterate through the allWeatherData array and call the saveData function if the temperature fits the if-statement */
     freezing() {
       this.allWeatherData.forEach((e) => {
         let temp = this.converter(e.result.temp.median);
@@ -546,6 +553,11 @@ export default {
       });
     },
 
+    /*Function that calls the findCityName function,
+    saves the name, temperature and continent in an Entry oject,
+    checks if the data in the Entry object already exists,
+    if not, it is saved in the chosenWeatherData array
+    */
     saveData(e, temp) {
       this.findCityName(e.city_id);
 
@@ -569,7 +581,7 @@ export default {
 
       this.printMonth();
     },
-
+    //Function that searches cities.json to find the city and continent name of the current Entry object in the saveData function
     findCityName(e) {
       this.cities.forEach((element) => {
         if (element.id === e) {
@@ -578,9 +590,11 @@ export default {
         }
       });
     },
-
+    /*Function that calls the sort function,
+    makes sure at least one continent and one temperature is chosen in the checkbox field
+    */
     checkData() {
-      console.log(this.chosenWeatherData);
+      //console.log(this.chosenWeatherData);
       this.sort();
       if (
         this.checkedWeather.length === 0 ||
@@ -594,7 +608,7 @@ export default {
         this.loading = false;
       }
     },
-
+    //Function that clears all current data
     clear() {
       this.checkedContinents = [];
       this.checkedWeather = [];
@@ -608,7 +622,7 @@ export default {
       this.loading = false;
       this.noMonth = false;
     },
-
+    //Function that sorts the chosenWeatherData array from highest temperature to lowest
     sort() {
       this.chosenWeatherData.sort((a, b) => b.temp - a.temp);
     },

@@ -1,7 +1,8 @@
 <template>
   <div class="row main-display">
-  <div class="col sidebar">
-  <Sidebar/></div>
+    <div class="col sidebar">
+      <Sidebar />
+    </div>
     <div class="col-md-5 col-sm-12 mb-3 question-field">
       <div class="input-field">
         <h5 class="question mb-4 mt-3">{{ question1 }}</h5>
@@ -302,6 +303,7 @@
 </template>
 
 <script>
+//import of Json Files with data
 import Africa from "./africanPlaces.json";
 import Europe from "./europeanPlaces.json";
 import Asia from "./asianPlaces.json";
@@ -309,7 +311,9 @@ import Australia from "./australianPlaces.json";
 import NorthAmerica from "./northAmerica.json";
 import SouthAmerica from "./southAmerica.json";
 import Cities from "./cities.json";
-import Sidebar from "./SidebarComponent.vue"
+//import Sidebar component
+import Sidebar from "./SidebarComponent.vue";
+
 export default {
   data() {
     return {
@@ -341,6 +345,8 @@ export default {
     Sidebar,
   },
   methods: {
+
+    //Function that makes API calls to openWeatherMap API
     getData() {
       const promises = [];
 
@@ -360,11 +366,16 @@ export default {
         .catch((err) => console.log(err));
     },
 
+    //Function that saves the results of the API calls in the allWeatherData array
     setResults(res) {
       console.log("Inside set Results");
       this.allWeatherData.push(res);
     },
 
+    /*Function that iniates the scanner, 
+    checks if the weather data is loaded,
+    calls the functions getPlaces and get Data
+    */
     load() {
       this.loading = true;
       if (this.chosenWeatherData !== 0) {
@@ -388,6 +399,7 @@ export default {
       });
     },*/
 
+    //Function that saves the results of the checked boxes into the chosenPlaces array
     getPlaces() {
       this.checkedContinents.forEach((e) => {
         if (e === "Africa") {
@@ -415,6 +427,7 @@ export default {
   
     },*/
 
+    //Function that calls the functions of the checked weather intervalls through a switch statement
     loadWeather() {
       this.checkedWeather.forEach((e) => {
         switch (e) {
@@ -440,50 +453,55 @@ export default {
       });
     },
 
-    //Functions to sort Cities by Temperature
+    /*Functions that iterate through the allWeatherData array and call the saveData function if the temperature fits the if-statement */
     freezing() {
       this.allWeatherData.forEach((e) => {
-        if (e.main.temp < 10) {
+        if (e.main.temp <= 0) {
           this.saveData(e);
         }
       });
     },
     cold() {
       this.allWeatherData.forEach((e) => {
-        if (e.main.temp >= 10 && e.main.temp < 15) {
+        if (e.main.temp > 1 && e.main.temp <= 10) {
           this.saveData(e);
         }
       });
     },
     cooler() {
       this.allWeatherData.forEach((e) => {
-        if (e.main.temp >= 15 && e.main.temp < 20) {
+        if (e.main.temp > 10 && e.main.temp <= 18) {
           this.saveData(e);
         }
       });
     },
     warm() {
       this.allWeatherData.forEach((e) => {
-        if (e.main.temp >= 20 && e.main.temp < 30) {
+        if (e.main.temp > 18 && e.main.temp <= 25) {
           this.saveData(e);
         }
       });
     },
     hot() {
       this.allWeatherData.forEach((e) => {
-        if (e.main.temp >= 29 && e.main.temp < 33) {
+        if (e.main.temp > 25 && e.main.temp <= 33) {
           this.saveData(e);
         }
       });
     },
     veryhot() {
       this.allWeatherData.forEach((e) => {
-        if (e.main.temp >= 33) {
+        if (e.main.temp > 33) {
           this.saveData(e);
         }
       });
     },
 
+    /*Function that calls the findCityName function,
+    saves the name, temperature and continent in an Entry oject,
+    checks if the data in the Entry object already exists,
+    if not, it is saved in the chosenWeatherData array
+    */
     saveData(e) {
       this.findCityName(e.id);
       const Entry = {
@@ -505,8 +523,9 @@ export default {
       //End of code snipet
     },
 
+    //Function that searches cities.json to find the city and continent name of the current Entry object in the saveData function
     findCityName(e) {
-      console.log(this.allWeatherData)
+     // console.log(this.allWeatherData);
       this.cities.forEach((element) => {
         if (element.id === e) {
           this.city_name.name = element.name;
@@ -515,6 +534,9 @@ export default {
       });
     },
 
+    /*Function that calls the sort function,
+    makes sure at least one continent and one temperature is chosen in the checkbox field
+*/
     checkData() {
       this.sort();
       if (
@@ -534,6 +556,7 @@ export default {
       }
     },
 
+    //Function that clears all current data
     clear() {
       this.checkedContinents = [];
       this.checkedWeather = [];
@@ -546,6 +569,7 @@ export default {
       this.loading = false;
     },
 
+    //Function that sorts the chosenWeatherData array from highest temperature to lowest
     sort() {
       this.chosenWeatherData.sort((a, b) => b.temp - a.temp);
     },
