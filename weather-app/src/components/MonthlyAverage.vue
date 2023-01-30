@@ -354,11 +354,14 @@ export default {
       apikey: "7a9d88d2c029fb0cdfcf837b5b21d116",
       notFound: false,
       noCheck: false,
+      loading: false,
+      noMonth: false,
       allWeatherData: [],
       chosenWeatherData: [],
       checkedContinents: [],
       checkedWeather: [],
       chosenPlaces: [],
+      checkedContinents2: [],
       options: [
         { text: "January", id: 1 },
         { text: "February", id: 2 },
@@ -384,8 +387,6 @@ export default {
       cities: Cities,
       month: "",
       city_name: {},
-      loading: false,
-      noMonth: false,
       question1: "Find the average monthly temperature",
       cta1: "Select the month of travel:",
       cta2: "Choose your destinations:",
@@ -398,6 +399,7 @@ export default {
   methods: {
     //Function that prints the month that was chosen in select menu
     printMonth() {
+      //console.log('Inside printMonth ')
       this.options.forEach((e) => {
         if (e.id === this.selected) {
           this.month = e.text;
@@ -407,6 +409,7 @@ export default {
     },
     //Function that makes API calls to openWeatherMap API
     getData() {
+      console.log("inside getData ");
       const promises = [];
       this.chosenPlaces.forEach((e) => {
         promises.push(
@@ -420,39 +423,63 @@ export default {
         );
       });
 
-      console.log(this.allWeatherData);
+      //console.log(this.allWeatherData);
+
+      //When the promise is returned, the function to load the chosen weather is called, then the sort function is called
       Promise.all(promises)
         .then(this.loadWeather)
-        .then(this.checkData)
+        .then(this.checkForData)
+        .then(this.sort)
         .catch((err) => console.log(err));
+
+      //Make sure the weather data existis
     },
     //Function that saves the results of the API calls in the allWeatherData array
     setResults(res) {
+      // console.log('Inside setResults ')
       this.allWeatherData.push(res);
     },
     /*Function that iniates the scanner, 
-    checks if the weather data is loaded,
+    checks if the month is selected and at least one continent and temperature interval is chosen
     calls the functions getPlaces and get Data
     */
     load() {
       this.loading = true;
+      this.notFound = false;
+      this.chosenWeatherData = [];
+      this.allWeatherData = [];
+      this.chosenPlaces = [];
+
+      console.log("Submit was clicked " + this.chosenWeatherData);
+      this.checkedContinents2 = [];
+      this.checkedContinents2 = this.checkedContinents;
+      console.log("Checked continents" + this.checkedContinents);
+      console.log("Checked continents2" + this.checkedContinents2);
+      console.log("Inside loading ");
+      this.loading = true;
       if (this.selected === "") {
+        console.log("No month selected");
         this.noMonth = true;
         this.loading = false;
-      } else if (this.chosenWeatherData !== 0) {
-        this.chosenWeatherData = [];
-        this.allWeatherData = [];
-        this.chosenPlaces = [];
-        this.getPlaces();
-        this.getData();
+        return 0;
+      } else if (this.checkedContinents == 0 || this.checkedWeather == 0) {
+        console.log("No continent or temperature checked ");
+        this.noCheck = true;
+        this.noMonth = false;
+        this.loading = false;
+        return 0;
       } else {
+        console.log("Load data normally");
+        this.noCheck = false;
+        this.noMonth = false;
         this.getPlaces();
         this.getData();
       }
     },
     //Function that saves the results of the checked boxes into the chosenPlaces array
     getPlaces() {
-      this.checkedContinents.forEach((e) => {
+      //console.log('Inside getPlaces ')
+      this.checkedContinents2.forEach((e) => {
         if (e === "Africa") {
           this.africa.forEach((e) => this.chosenPlaces.push(e));
         } else if (e === "Asia") {
@@ -475,16 +502,12 @@ export default {
       this.checkedWeather.forEach((e) => {
         switch (e) {
           case "very hot":
-            //console.log('Inside switch very hot')
             this.veryhot();
             break;
           case "hot":
-            //console.log('Inside switch hot')
             this.hot();
-            //console.log()
             break;
           case "warm":
-            // console.log("Inside switch warm");
             this.warm();
             break;
           case "cooler":
@@ -501,6 +524,7 @@ export default {
     },
     //converts the temperature from Kelvin to Celsius
     converter(e) {
+      // console.log('Inside converter ')
       return Math.round(e - 273.15);
     },
     /*Functions that iterate through the allWeatherData array and call the saveData function if the temperature fits the if-statement */
@@ -559,6 +583,7 @@ export default {
     if not, it is saved in the chosenWeatherData array
     */
     saveData(e, temp) {
+      //console.log('Inside saveData' )
       this.findCityName(e.city_id);
 
       const Entry = {
@@ -583,6 +608,7 @@ export default {
     },
     //Function that searches cities.json to find the city and continent name of the current Entry object in the saveData function
     findCityName(e) {
+      // console.log('Inside findCityName ')
       this.cities.forEach((element) => {
         if (element.id === e) {
           this.city_name.name = element.name;
@@ -590,22 +616,13 @@ export default {
         }
       });
     },
-    /*Function that calls the sort function,
-    makes sure at least one continent and one temperature is chosen in the checkbox field
-    */
-    checkData() {
-      //console.log(this.chosenWeatherData);
-      this.sort();
-      if (
-        this.checkedWeather.length === 0 ||
-        this.checkedContinents.length === 0
-      ) {
-        this.noCheck = true;
+
+    checkForData() {
+      if (this.chosenWeatherData.length === 0) {
+        console.log("No results ");
         this.loading = false;
-      }
-      if (this.chosenWeatherData.length === 0 && this.noCheck === false) {
         this.notFound = true;
-        this.loading = false;
+        return 0;
       }
     },
     //Function that clears all current data

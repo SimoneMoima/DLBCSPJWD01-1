@@ -197,11 +197,7 @@
         </div>
         <div class="submit">
           <div class="button">
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="load(), (loading = true)"
-            >
+            <button type="button" class="btn btn-primary" @click="load()">
               Submit
             </button>
           </div>
@@ -214,6 +210,7 @@
         <div v-if="chosenWeatherData == 0">
           <div v-if="!noCheck && !notFound">
             <h4>The results will display here....</h4>
+
             <div class="spinner" v-show="loading">
               <div class="spinner-border text-info" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -239,14 +236,9 @@
               Please make sure you check at least one continent and one
               preferred temperature.
             </h4>
-            <div class="spinner" v-show="loading">
-              <div class="spinner-border text-info" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
           </div>
 
-          <div v-if="notFound">
+          <div v-show="notFound">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="50"
@@ -264,11 +256,6 @@
               Sorry, no such weather found... Please try a different combination
               of continent and temperature preference.
             </h3>
-            <div class="spinner" v-show="loading">
-              <div class="spinner-border text-info" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -293,6 +280,7 @@
           </dl>
         </div>
       </div>
+
       <div class="button">
         <button type="button" class="btn btn-outline-primary" @click="clear()">
           Clear
@@ -321,6 +309,7 @@ export default {
       apikey: "7a9d88d2c029fb0cdfcf837b5b21d116",
       notFound: false,
       noCheck: false,
+      loading: false,
       allWeatherData: [],
       chosenWeatherData: [],
       checkedContinents: [],
@@ -335,7 +324,6 @@ export default {
       southAmerica: SouthAmerica,
       cities: Cities,
       city_name: {},
-      loading: false,
       question1: "Find your destination based on  the current temperature",
       cta1: "Choose your destinations: ",
       cta2: "How do you like your Temperature?",
@@ -345,7 +333,6 @@ export default {
     Sidebar,
   },
   methods: {
-
     //Function that makes API calls to openWeatherMap API
     getData() {
       const promises = [];
@@ -362,8 +349,11 @@ export default {
 
       Promise.all(promises)
         .then(this.loadWeather)
-        .then(this.checkData)
+        .then(this.checkForData)
+        .then(this.sort)
         .catch((err) => console.log(err));
+
+      console.log(this.allWeatherData);
     },
 
     //Function that saves the results of the API calls in the allWeatherData array
@@ -378,13 +368,19 @@ export default {
     */
     load() {
       this.loading = true;
-      if (this.chosenWeatherData !== 0) {
-        this.chosenWeatherData = [];
-        this.allWeatherData = [];
-        this.chosenPlaces = [];
-        this.getPlaces();
-        this.getData();
+      this.notFound = false;
+      this.chosenWeatherData = [];
+      this.allWeatherData = [];
+      this.chosenPlaces = [];
+      if (this.checkedContinents == 0 || this.checkedWeather == 0) {
+        console.log("No continent or temperature checked ");
+        this.loading = false;
+        this.noCheck = true;
+        this.noMonth = false;
+        return 0;
       } else {
+        console.log("Load data normally");
+        this.noCheck = false;
         this.getPlaces();
         this.getData();
       }
@@ -401,6 +397,7 @@ export default {
 
     //Function that saves the results of the checked boxes into the chosenPlaces array
     getPlaces() {
+      //console.log('Inside getPlaces')
       this.checkedContinents.forEach((e) => {
         if (e === "Africa") {
           this.africa.forEach((e) => this.chosenPlaces.push(e));
@@ -525,7 +522,7 @@ export default {
 
     //Function that searches cities.json to find the city and continent name of the current Entry object in the saveData function
     findCityName(e) {
-     // console.log(this.allWeatherData);
+      // console.log(this.allWeatherData);
       this.cities.forEach((element) => {
         if (element.id === e) {
           this.city_name.name = element.name;
@@ -534,28 +531,14 @@ export default {
       });
     },
 
-    /*Function that calls the sort function,
-    makes sure at least one continent and one temperature is chosen in the checkbox field
-*/
-    checkData() {
-      this.sort();
-      if (
-        this.checkedWeather.length === 0 ||
-        this.checkedContinents.length === 0
-      ) {
-        this.noCheck = true;
+    checkForData() {
+      if (this.chosenWeatherData.length === 0) {
+        console.log("No results ");
         this.loading = false;
-      } else if (
-        this.chosenWeatherData.length === 0 &&
-        this.noCheck === false
-      ) {
         this.notFound = true;
-        this.loading = false;
-      } else {
-        this.loading = false;
+        return 0;
       }
     },
-
     //Function that clears all current data
     clear() {
       this.checkedContinents = [];
