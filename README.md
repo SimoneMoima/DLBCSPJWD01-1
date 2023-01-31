@@ -1,6 +1,9 @@
 # DLBCSPJWD01-1
 simple app to find possible vacation places based on the current or the monthly average temperature
 
+Link for the screencast:
+https://1drv.ms/p/s!ArjyyKWbk1RgguEaOKdXBbE7RqBPhg?e=9tf5d1
+
 ## Table of Content
 * [General Info](#general-info)
 * [Technologies](#technologies)
