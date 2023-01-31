@@ -34,6 +34,8 @@ Project name: … <your-project-name>
 Scaffolding project in ./<your-project-name>...
 Done.
 
+  ```
 > cd <your-project-name>
 > npm install
 > npm run dev
+  ```
