@@ -15,8 +15,9 @@ Project is created with:
 To run the programm, please install and run locally using npm:
 
 Install vue:
-
-> npm init vue@latest
+```
+$ npm init vue@latest
+```
 
 This command will install and execute create-vue, the official Vue project scaffolding tool. You will be presented with prompts for several optional features such as TypeScript and testing support:
 
