@@ -67,11 +67,11 @@ Install Bootstrap-Icons:
 #### Node.js
 Make sure you have the latest version of Node.js with:
   ```
-  $ 
+  $ node -v
   ```
   
 Or downlaod it here:
-  ´´´
+
 https://nodejs.org/en/download/
-  ´´´
+
   
