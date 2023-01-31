@@ -10,7 +10,7 @@ simple app to find possible vacation places based on the current or the monthly 
 This application runs with the openWeatherMap API.
 The component TravelNow.vue can be used with a free API key.
 The component TravelLater needs a Student subscription.
-Please visit [openWeatherMap](#https://openweathermap.org/api) to get your own API key.
+Please visit [openWeatherMap](https://openweathermap.org/api) to get your own API key.
 
 ## Technologies
 Project is created with:
