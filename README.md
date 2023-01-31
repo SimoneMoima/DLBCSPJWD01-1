@@ -25,6 +25,7 @@ Project is created with:
 ## Setup
 To run the programm, please install and run locally using npm:
 
+#### Vue
 Install vue:
 ```
 $ npm init vue@latest
@@ -51,11 +52,12 @@ $ npm install
 $ npm run dev
   ```
   
-  
+#### Bootstrap
 Install Bootstrap:
   ```
   $ npm install bootstrap@5.2.3
   ```
+#### Bootstrap-Icons
 Install Bootstrap-Icons:
 
 ```
