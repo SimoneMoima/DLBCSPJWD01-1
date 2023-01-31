@@ -73,8 +73,11 @@ Make sure you have the latest version of Node.js with:
   $ node -v
   ```
   
-Or downlaod it here:
+Or download it here:
 
 https://nodejs.org/en/download/
+
+#### Extensions:
+vue volar
 
   
