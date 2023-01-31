@@ -58,6 +58,6 @@ Install Bootstrap:
   ```
 Install Bootstrap-Icons:
 
-´´´
-$ npm install bootstrap-icons
+```
+  $ npm install bootstrap-icons
 ```
