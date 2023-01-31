@@ -61,3 +61,15 @@ Install Bootstrap-Icons:
 ```
   $ npm install bootstrap-icons
 ```
+ 
+#### Node.js
+Make sure you have the latest version of Node.js with:
+  ```
+  $ 
+  ```
+  
+Or install it with:
+  ```
+  $
+  ```
+  
