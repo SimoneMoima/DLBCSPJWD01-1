@@ -6,6 +6,10 @@ simple app to find possible vacation places based on the current or the monthly 
 * [Technologies](#technologies)
 * [Setup](#setup)
 
+## General Info
+This application runs with the openWeatherMap API.
+The component including 
+
 ## Technologies
 Project is created with:
 * Vue.js 3
