@@ -25,8 +25,19 @@ Project is created with:
 ## Setup
 To run the programm, please install and run locally using npm:
 
-#### Vue
-Install vue:
+## Vue + Vite
+
+This template should help get you started developing with Vue 3 in Vite.
+
+### Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+### Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+### Project setup:
 ```
 $ npm init vue@latest
 ```
@@ -45,26 +56,40 @@ Project name: … <your-project-name>
 
 Scaffolding project in ./<your-project-name>...
 Done.
-
-  ```
+  
+### Compile and Hot-Reload for Development
+  
+  ```sh
 $ cd <your-project-name>
 $ npm install
 $ npm run dev
   ```
   
-#### Bootstrap
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
+
+### Bootstrap
 Install Bootstrap:
   ```
   $ npm install bootstrap@5.2.3
   ```
-#### Bootstrap-Icons
+### Bootstrap-Icons
 Install Bootstrap-Icons:
 
 ```
   $ npm install bootstrap-icons
 ```
  
-#### Node.js
+### Node.js
 Make sure you have the latest version of Node.js with:
   ```
   $ node -v
@@ -74,7 +99,7 @@ Or download it here:
 
 https://nodejs.org/en/download/
 
-#### Extensions:
-vue volar
 
-  
+
+
+
