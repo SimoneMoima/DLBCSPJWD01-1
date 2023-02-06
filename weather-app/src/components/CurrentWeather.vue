@@ -306,7 +306,6 @@ export default {
   data() {
     return {
       url: "http://pro.openweathermap.org/data/2.5/",
-      apikey: "7a9d88d2c029fb0cdfcf837b5b21d116",
       notFound: false,
       noCheck: false,
       loading: false,
