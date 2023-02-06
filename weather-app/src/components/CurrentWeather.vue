@@ -306,6 +306,7 @@ export default {
   data() {
     return {
       url: "http://pro.openweathermap.org/data/2.5/",
+      apikey: import.meta.env.VITE_API_KEY,
       notFound: false,
       noCheck: false,
       loading: false,

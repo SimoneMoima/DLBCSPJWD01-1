@@ -351,6 +351,7 @@ export default {
   data() {
     return {
       url: "https://history.openweathermap.org/data/2.5/aggregated/",
+      apikey: import.meta.env.VITE_API_KEY,
       notFound: false,
       noCheck: false,
       loading: false,
