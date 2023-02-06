@@ -1,10 +1,10 @@
+<!--Entry point of the application -->
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-
-
 </script>
 
 <template>
+  <!--Navigation bar, sticks to the top -->
   <header>
     <nav class="navbar sticky-top navbar-expand-lg">
       <div class="container-fluid">
@@ -42,24 +42,26 @@ import { RouterLink, RouterView } from "vue-router";
       </div>
     </nav>
   </header>
-        <RouterView />
+  <!--Router Views - Home, Travel now, Travel later -->
+  <RouterView />
   <footer></footer>
 </template>
 
 <style scoped>
-
+/*Style when hover */
 a:hover {
   color: darkcyan;
 }
+/*Navbar logo */
 .navbar-brand {
   font-size: medium;
 }
-
+/*Text decoration */
 a {
   text-decoration: none;
   color: black;
 }
-
+/*Change navbar font size when large display */
 @media (min-width: 1024px) {
   .navbar-brand {
     font-size: large;

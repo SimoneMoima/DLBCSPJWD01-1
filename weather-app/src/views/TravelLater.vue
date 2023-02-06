@@ -8,6 +8,3 @@ import monthlyAverage from "../components/MonthlyAverage.vue";
   </main>
 </template>
 
-<style>
-
-</style>

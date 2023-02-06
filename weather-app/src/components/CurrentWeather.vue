@@ -1,16 +1,24 @@
+<!--This file includes the component for displaying the current weather -->
+<!--Router view through TravelNow -->
+
 <template>
+  <!--HTML CODE -->
+
+  <!--Includes the sidebar component -->
   <div class="row main-display">
     <div class="col sidebar">
       <Sidebar />
     </div>
+    <!--Input field to collect the information from the user. (Continent, Temperature preference) -->
     <div class="col-md-5 col-sm-12 mb-3 question-field">
       <div class="input-field">
         <h5 class="question mb-4 mt-3">{{ question1 }}</h5>
-
+        <!--Call to action 1 -->
         <h4 class="question mb-3">{{ cta1 }}</h4>
-
+        <!--Input field for continent checkboxes-->
         <div class="continents mb-3">
           <div class="row">
+            <!--Africa checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -25,6 +33,7 @@
                 </label>
               </div>
             </div>
+            <!--Asia checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -38,6 +47,7 @@
                 </label>
               </div>
             </div>
+            <!--Australia checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -52,7 +62,7 @@
               </div>
             </div>
           </div>
-
+          <!--Europe checkbox -->
           <div class="row">
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
@@ -67,7 +77,7 @@
                 </label>
               </div>
             </div>
-
+            <!--North America checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -81,7 +91,7 @@
                 </label>
               </div>
             </div>
-
+            <!--South America checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -97,13 +107,14 @@
             </div>
           </div>
         </div>
-
+        <!--Call to action 2 -->
         <div>
           <h4 class="question mb-2">{{ cta2 }}</h4>
         </div>
-
+        <!--Input field for temperature preference checkboxes-->
         <div class="temperatures mb-3">
           <div class="row">
+            <!--Very Hot checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -118,6 +129,7 @@
                 </label>
               </div>
             </div>
+            <!--Hot checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -132,6 +144,7 @@
                 </label>
               </div>
             </div>
+            <!--Warm checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -147,7 +160,7 @@
               </div>
             </div>
           </div>
-
+          <!--Cooler checkbox -->
           <div class="row">
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
@@ -163,7 +176,7 @@
                 </label>
               </div>
             </div>
-
+            <!--Cold checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -178,7 +191,7 @@
                 </label>
               </div>
             </div>
-
+            <!--Freezing checkbox -->
             <div class="col col-checkbox">
               <div class="form-check form-check-inline">
                 <input
@@ -195,6 +208,7 @@
             </div>
           </div>
         </div>
+        <!--Submit button -->
         <div class="submit">
           <div class="button">
             <button type="button" class="btn btn-primary" @click="load()">
@@ -204,20 +218,22 @@
         </div>
       </div>
     </div>
-
+    <!--Output field for the results -->
     <div class="col-md-4 response-field">
       <div class="response overflow-auto">
+        <!--Display in case of error -->
         <div v-if="chosenWeatherData == 0">
+          <!--Display message before results are searched for-->
           <div v-if="!noCheck && !notFound">
             <h4>The results will display here....</h4>
-
+            <!--Spinner while loading -->
             <div class="spinner" v-show="loading">
               <div class="spinner-border text-info" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
             </div>
           </div>
-
+          <!--Error message if a checkbox is missing -->
           <div v-if="noCheck">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +253,7 @@
               preferred temperature.
             </h4>
           </div>
-
+          <!--Error message if weather-continent combination is not found -->
           <div v-show="notFound">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -258,7 +274,7 @@
             </h3>
           </div>
         </div>
-
+        <!--Display results -->
         <div v-if="chosenWeatherData != 0">
           <h2 class="mb-3">
             <strong>Results: </strong>
@@ -280,7 +296,7 @@
           </dl>
         </div>
       </div>
-
+      <!--Button to clear all data -->
       <div class="button">
         <button type="button" class="btn btn-outline-primary" @click="clear()">
           Clear
@@ -301,7 +317,7 @@ import SouthAmerica from "./southAmerica.json";
 import Cities from "./cities.json";
 //import Sidebar component
 import Sidebar from "./SidebarComponent.vue";
-
+//Initialized variables:
 export default {
   data() {
     return {
@@ -329,9 +345,11 @@ export default {
       cta2: "How do you like your Temperature?",
     };
   },
+  //Load components:
   components: {
     Sidebar,
   },
+  //All function declarations:
   methods: {
     //Function that makes API calls to openWeatherMap API
     getData() {
@@ -385,15 +403,6 @@ export default {
         this.getData();
       }
     },
-    /*      this.Cities.forEach((e) => {
-        fetch(`${this.url}weather?q=${e}&units=metric&appid=${this.apikey}`)
-          .then((response) => {
-            return response.json();
-          })
-          .then(this.setResults)
-          .catch((err) => console.log(err));
-      });
-    },*/
 
     //Function that saves the results of the checked boxes into the chosenPlaces array
     getPlaces() {
@@ -414,15 +423,6 @@ export default {
         }
       });
     },
-
-    /*loadContinents(){
-      console.log('Inside loadContinent')
-      this.checkedContinents.forEach((e) => {
-          this.getData(e);
-      })
-      return 'done';
-  
-    },*/
 
     //Function that calls the functions of the checked weather intervalls through a switch statement
     loadWeather() {
@@ -561,9 +561,11 @@ export default {
 </script>
 
 <style>
+/*results display style*/
 .results {
   text-align: center;
 }
+/*Sumbit button style*/
 .submit {
   text-align: center;
 }

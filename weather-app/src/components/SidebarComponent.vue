@@ -1,3 +1,4 @@
+<!--This file includes the Sidebar Component for the MonthlyAverage and CurrentWeather -->
 <template>
   <div class="col nav-image">
     <h3 class="c-header fst-italic shadow-lg intro-header mt-5">
@@ -6,6 +7,7 @@
 
     <div class="d-grid col-md-block col-sm-block mx-auto">
       <div class="row">
+        <!--Router links -->
         <div class="col col-md-6">
           <RouterLink to="/TravelNow"
             ><button class="btn btn-primary" type="button">Travel now</button>
@@ -20,7 +22,7 @@
         </div>
       </div>
     </div>
-
+    <!--Offcanvas for temperature glossary -->
     <div class="d-grid col-md-12 mt-5">
       <button
         class="btn btn-warning opacity-75"
@@ -64,10 +66,12 @@
 </template>
 
 <style>
+/*paragraph style*/
 p {
   padding: 5px;
   text-align: left;
 }
+/*paragraph style*/
 .nav-image {
   background-image: url("../assets/pexels-nastyasensei-335393.jpg");
   background-position: center;
