@@ -54,7 +54,10 @@ Project name: … <your-project-name>
 * ✔ Add ESLint for code quality? … No / Yes
 * ✔ Add Prettier for code formatting? … No / Yes
 
-Scaffolding project in ./<your-project-name>...
+Scaffolding project in ./
+
+<your-project-name>...
+
 Done.
   
 ### Compile and Hot-Reload for Development
