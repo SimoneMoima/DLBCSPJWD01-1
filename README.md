@@ -45,6 +45,8 @@ npm run build
 
 https://marketplace.visualstudio.com/items?itemName=MisterJ.vue-volar-extention-pack
 
+https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin
+
 ### Node.js
 Make sure you have the latest version of Node.js with:
   ```
