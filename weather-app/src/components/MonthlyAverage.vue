@@ -463,7 +463,6 @@ export default {
       this.chosenWeatherData = [];
       this.allWeatherData = [];
       this.chosenPlaces = [];
-
       console.log("Submit was clicked " + this.chosenWeatherData);
       this.checkedContinents2 = [];
       this.checkedContinents2 = this.checkedContinents;
