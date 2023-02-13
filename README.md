@@ -45,6 +45,9 @@ npm run build
 
 https://marketplace.visualstudio.com/items?itemName=MisterJ.vue-volar-extention-pack
 
+### DotEnv
+https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv
+
 ### Node.js
 Make sure you have the latest version of Node.js with:
   ```
