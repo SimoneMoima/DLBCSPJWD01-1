@@ -13,28 +13,28 @@ Router link through HomeView -->
     <div class="carousel-inner">
       <div class="carousel-item active c-item">
         <img
-          src="../assets/pexels-nastyasensei-335393.jpg"
+          src="../assets/globe.jpg"
           class="d-block w-100 c-image"
           alt="Image by Nastyasensei"
         />
       </div>
       <div class="carousel-item c-item">
         <img
-          src="../assets/pexels-david-riaño-cortés-975771.jpg"
+          src="../assets/jungle.jpg"
           class="d-block w-100 c-image"
           alt="Image by David Riaño Cortés"
         />
       </div>
       <div class="carousel-item c-item">
         <img
-          src="../assets/pexels-hendrik-cornelissen-2862070.jpg"
+          src="../assets/zebra.jpg"
           class="d-block w-100 c-image"
           alt="Image by Hendrik Cornelissen"
         />
       </div>
       <div class="carousel-item c-item">
         <img
-          src="../assets/pexels-simon-berger-688660.jpg"
+          src="../assets/winterForest.jpg"
           class="d-block w-100 c-image"
           alt="Image by Simon Berger"
         />

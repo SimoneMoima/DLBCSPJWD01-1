@@ -73,7 +73,7 @@ p {
 }
 /*paragraph style*/
 .nav-image {
-  background-image: url("../assets/pexels-nastyasensei-335393.jpg");
+  background-image: url("../assets/globe.jpg");
   background-position: center;
   background-size: cover;
   box-shadow: 5px 5px lightgrey;
