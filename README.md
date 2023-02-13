@@ -39,6 +39,17 @@ $ npm run dev
 ```sh
 npm run build
 ```
+### Bootstrap
+Install Bootstrap:
+  ```
+  $ npm install bootstrap@5.2.3
+  ```
+### Bootstrap-Icons
+Install Bootstrap-Icons:
+
+```
+  $ npm install bootstrap-icons
+```
 
 ## Extensions
 ### Volar Package
