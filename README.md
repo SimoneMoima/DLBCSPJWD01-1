@@ -1,4 +1,4 @@
-# DLBCSPJWD01-1
+# WeatherVaccationApp
 simple app to find possible vacation places based on the current or the monthly average temperature
 
 ## Table of Content
